@@ -26,7 +26,7 @@ router.get("/:url", function (req, res, next) {
           .where({ id: counter.id })
           .update({ visits: counter.visits + 1 })
           .then(() => {
-            res.setHeader("content-type", "text/xml");
+            res.setHeader("content-type", "image/svg+xml");
             res.render("counter", {
               label: kmb.format(counter.visits + 1),
               color,
@@ -38,7 +38,7 @@ router.get("/:url", function (req, res, next) {
         return knex("counters")
           .insert({ url: req.params.url, visits: 1 })
           .then(() => {
-            res.setHeader("content-type", "text/xml");
+            res.setHeader("content-type", "image/svg+xml");
             res.render("counter", {
               label: kmb.format(1),
               color,
