@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <ul>
+        <% data.forEach(function(result){ %>
+            <li><%= result.url %>: <%= result.visits %></li>
+        <%  }); %>
+    </ul>
+  </body>
+</html>
