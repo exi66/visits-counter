@@ -15,7 +15,7 @@ RUN npm install -g knex
 # Copy the rest of the application code
 COPY . .
 
-RUN knex migrate:up
+# RUN knex migrate:up
 
 # Expose the port the Express app runs on
 EXPOSE 3000
