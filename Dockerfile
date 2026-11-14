@@ -1,23 +1,20 @@
-# Use the official Node.js image as the base image
 FROM node:24-alpine
-# Set the working directory inside the container
+
+ENV NODE_ENV=production \
+    DB_PATH=/data/data.sqlite3
+
 WORKDIR /app
 
-# Copy package.json and package-lock.json to install dependencies
-COPY package*.json ./
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev && npm cache clean --force
 
-# Install application dependencies
-RUN npm install
-
-RUN npm install -g knex
-
-# Copy the rest of the application code
 COPY . .
 
-# RUN knex migrate:up
+RUN mkdir -p /data && chown node:node /data
+USER node
+VOLUME /data
 
-# Expose the port the Express app runs on
 EXPOSE 3000
 
-# Command to run the application when the container starts
-CMD ["npm", "start"]
+# Migrations run automatically on startup (see server.js)
+CMD ["node", "server.js"]

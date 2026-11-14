@@ -1,25 +1,18 @@
-// Update with your config settings.
+const path = require("path");
 
 /**
- * @type { Object.<string, import("knex").Knex.Config> }
+ * Single config for all environments; the database location comes from DB_PATH.
+ * The knex CLI falls back to this object when no per-environment key exists.
+ *
+ * @type { import("knex").Knex.Config }
  */
 module.exports = {
-  development: {
-    client: "better-sqlite3",
-    connection: {
-      filename: "./data.sqlite3",
-    },
+  client: "better-sqlite3",
+  connection: {
+    filename: process.env.DB_PATH || path.join(__dirname, "data.sqlite3"),
   },
-  staging: {
-    client: "better-sqlite3",
-    connection: {
-      filename: "./data.sqlite3",
-    },
-  },
-  production: {
-    client: "better-sqlite3",
-    connection: {
-      filename: "./data.sqlite3",
-    },
+  useNullAsDefault: true,
+  migrations: {
+    directory: path.join(__dirname, "migrations"),
   },
 };
