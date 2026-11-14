@@ -1,16 +1,11 @@
 const express = require("express");
-const router = express.Router();
-const knex = require("knex")(require("../knexfile").development);
+const knex = require("../db");
 
-router.get("/", function (req, res, next) {
-  knex("counters")
-    .select()
-    .then((data) => {
-      res.render("index", { data });
-    })
-    .catch((err) => {
-      next(err);
-    });
+const router = express.Router();
+
+router.get("/", async (req, res) => {
+  const data = await knex("counters").select().orderBy("visits", "desc");
+  res.render("index", { data });
 });
 
 module.exports = router;

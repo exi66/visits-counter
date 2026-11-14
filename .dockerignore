@@ -1,1 +1,15 @@
 node_modules
+.git
+.gitignore
+.dockerignore
+Dockerfile
+.vscode
+.idea
+*.sqlite3
+*.log
+.env
+test
+README.md
+eslint.config.js
+.prettierrc.json
+.prettierignore

@@ -5,7 +5,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable("counters", function (table) {
     table.increments("id");
-    table.string("url", 255).notNullable();
+    table.string("url", 255).notNullable().unique();
     table.integer("visits").notNullable().defaultTo(0);
   });
 };
